@@ -1,0 +1,24 @@
+- name: user nodejs Install
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: nodejs.yml
+- name: user app setup
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: app-setup.yml
+- name: npm installation based on package.json file
+  npm:
+    path: /app
+- name: install mongodb client
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: mongoclient.yml
+- name: mongo host connect from user
+  ansible.builtin.shell:  mongo --host {{MONGODB_HOST}} --quiet --eval 'db = db.getSiblingDB("{{component}}"); db.users.count()'
+  register: users_count
+- name: connecting and loading schema
+  ansible.builtin.shell: "mongo --host {{MONGODB_HOST}} < /app/schema/{{component}}.js"
+  when: component == "user" and users_count.stdout == "0" 
+
+
+

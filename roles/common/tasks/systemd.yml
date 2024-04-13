@@ -1,0 +1,10 @@
+- name: deamon reloaded
+  ansible.builtin.systemd_service:
+    name: "{{component}}"
+    state: started
+    daemon_reload: true
+- name: Checking service module again deamon reloaded
+  ansible.builtin.service:
+    name: "{{component}}"
+    enabled: yes
+    state: restarted

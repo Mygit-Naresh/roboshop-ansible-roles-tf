@@ -1,0 +1,27 @@
+ - name: nginx Install
+   ansible.builtin.import_role:
+     name: common
+     tasks_from: nginx.yml
+ - name: Download url and get builds from s3
+   ansible.builtin.get_url:
+      url: https://roboshop-builds.s3.amazonaws.com/web.zip
+      dest: /tmp/web.zip
+      mode: '0440'
+ - name: Extract /tmp/web.zip into /usr/share/nginx/html
+   ansible.builtin.unarchive:
+     src: /tmp/web.zip
+     dest: /usr/share/nginx/html
+     remote_src: yes
+ - name: Copy file 
+   ansible.builtin.template:
+     src: roles/common/templates/roboshop.conf.j2
+     dest: /etc/nginx/default.d/roboshop.conf
+ - name: nginx enable and start
+   ansible.builtin.systemd_service:
+     name: nginx
+     enabled: yes
+     state: started
+
+
+  
+     

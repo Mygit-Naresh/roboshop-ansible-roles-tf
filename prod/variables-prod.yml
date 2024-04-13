@@ -1,0 +1,9 @@
+REDIS_HOST: redis.eternaltrainings.online
+CATALOUGE_HOST: catalogue.eternaltrainings.online
+CART_HOST: cart.eternaltrainings.online
+MYSQL_HOST: mysql.eternaltrainings.online
+PAYMENT_HOST: payment.eternaltrainings.online
+MONGODB_HOST: mongodb.eternaltrainings.online
+RABBITMQ_HOST: rabbitmq.eternaltrainings.online
+SHIPPING_HOST: shipping.eternaltrainings.online
+USER_HOST:  user.eternaltrainings.online

@@ -1,0 +1,28 @@
+- name:  application setup
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: app-setup.yml
+- name: roboshop app setup general
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: java-maven.yml
+- name: rename
+  ansible.builtin.shell: mv /app/target/{{component}}-{{shipping_version}}.jar shipping.jar
+  args:
+    chdir: /app
+- name:  systemd
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: systemd.yml
+- name: mysql client install
+  ansible.builtin.package:
+    name: mysql
+    state: present
+- name: connect to mysql and load data
+  ansible.builtin.command: mysql -h {{MYSQL_HOST}}  -uroot {{mysql_password}} < /app/schema/{{component}}.sql
+- name: restart shipping
+  ansible.builtin.shell: systemctl restart {{component}}
+- name: importing deployment tasks with tags
+  ansible.builtin.import_role:
+     name: common
+     tasks_from: deployment
