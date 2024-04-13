@@ -12,9 +12,14 @@
     enabled: yes
     state: restarted
 - name: rabbitmq create user and pwd
-  ansible.builtin.shell: rabbitmqctl add_user   "{{rabbit_user}}" "{{rabbit_password}}"
-- name: rabbitmq set permissions
-  ansible.builtin.shell: rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*"
+  community.rabbitmq.rabbitmq_user:
+    user: "{{  lookup('aws_ssm',  '/roboshop/{{}env}}/rabbitmq_user', region=us-east-1 )   }}"
+    password: "{{  lookup('aws_ssm',  '/roboshop/{{}env}}/rabbitmq_password', region=us-east-1 )   }}"
+    vhost: /
+    configure_priv: .*
+    read_priv: .*
+    write_priv: .*
+    state: present
 
     
      
