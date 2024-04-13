@@ -13,8 +13,8 @@
     state: restarted
 - name: rabbitmq create user and pwd
   community.rabbitmq.rabbitmq_user:
-    user: "{{  lookup('aws_ssm',  '/ROBOSHOP/DEV/rabbitmq_user', region='us-east-1')   }}"
-    password: "{{ lookup('aws_ssm',  '/ROBOSHOP/DEV/rabbitmq_password', region='us-east-1') }}"
+    user: "{{  lookup('aws_ssm',  '/ROBOSHOP/DEV/rabbitmq_user', decrypt=False, region='us-east-1')   }}"
+    password: "{{ lookup('aws_ssm',  '/ROBOSHOP/DEV/rabbitmq_password', decrypt=False, region='us-east-1') }}"
     vhost: /
     configure_priv: .*
     read_priv: .*
