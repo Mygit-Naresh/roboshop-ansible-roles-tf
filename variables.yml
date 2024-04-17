@@ -1,5 +1,5 @@
 REDIS_HOST: redis.eternaltrainings.online
-CATALOUGE_HOST: catalogue.eternaltrainings.online
+CATALOGUE_HOST: catalogue.eternaltrainings.online
 CART_HOST: cart.eternaltrainings.online
 MYSQL_HOST: mysql.eternaltrainings.online
 PAYMENT_HOST: payment.eternaltrainings.online
