@@ -6,7 +6,7 @@
   ansible.builtin.import_role:
     name: common
     tasks_from: app-setup.yml
-- name: Install packages based on package.json
+- name: Install packages based on package.json for cart
   npm:
     path: /app
 - name: cart systemd
