@@ -2,10 +2,13 @@
   ansible.builtin.import_role:
     name: common
     tasks_from: nodejs.yml
-- name: cart app setup
+- name: component app setup
   ansible.builtin.import_role:
     name: common
     tasks_from: app-setup.yml
+- name: Install packages based on package.json
+  npm:
+    path: /app
 - name: cart systemd
   ansible.builtin.import_role:
     name: common
