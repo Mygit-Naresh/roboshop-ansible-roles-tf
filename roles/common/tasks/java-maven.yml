@@ -1,7 +1,3 @@
-- name: JAVA and MAVEN configuration
-  ansible.builtin.package:
-    name: maven
-    state: present
 - name: package maven install
   ansible.builtin.shell: mvn clean package
   args:

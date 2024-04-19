@@ -1,8 +1,12 @@
+- name: JAVA and MAVEN configuration
+  ansible.builtin.package:
+    name: maven
+    state: present
 - name:  application setup
   ansible.builtin.import_role:
     name: common
     tasks_from: app-setup.yml
-- name: roboshop app setup general
+- name: mvn package install
   ansible.builtin.import_role:
     name: common
     tasks_from: java-maven.yml
