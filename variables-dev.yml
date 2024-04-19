@@ -1,7 +1,7 @@
 REDIS_HOST: redis-dev.eternaltrainings.online
 CATALOGUE_HOST: catalogue.app-dev.eternaltrainings.online
 CART_HOST: cart.app-dev.eternaltrainings.online
-MYSQL_HOST: mysql-dev.eternaltrainings.onli
+MYSQL_HOST: mysql-dev.eternaltrainings.online
 PAYMENT_HOST: payment.app-dev.eternaltrainings.online
 MONGODB_HOST: mongodb-dev.eternaltrainings.online
 RABBITMQ_HOST: rabbitmq-dev.eternaltrainings.online
