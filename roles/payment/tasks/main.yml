@@ -1,17 +1,64 @@
-- name: python install and configure
-  ansible.builtin.import_role:
-    name: common
-    tasks_from: python.yml
-- name: python app setup
-  ansible.builtin.import_role:
-    name: common
-    tasks_from: app-setup.yml
+# - name: python install and configure
+#   ansible.builtin.import_role:
+#     name: common
+#     tasks_from: python.yml
+# - name: python app setup
+#   ansible.builtin.import_role:
+#     name: common
+#     tasks_from: app-setup.yml
+# - name: install python dependencies
+#   ansible.builtin.command: sudo pip3.6 install --user -r requirements.txt
+#   args:
+#    chdir: /app
+# - name: systemd {{component}} daemon_reload
+#   ansible.builtin.import_role:
+#     name: common
+#     tasks_from: systemd.yml
+
+- name: install python packages
+  ansible.builtin.package:
+    name:  "{{item}}"
+    state: present
+  loop: 
+    - python36
+    - gcc
+    - python3-devel
+
+- name: created local account
+  ansible.builtin.shell:  useradd roboshop
+  ignore_errors: True
+- name: Create a directory  /app if it does not exist
+  ansible.builtin.file:
+    path: /app
+    state: directory
+- name: Download {{component}}.zip
+  ansible.builtin.get_url:
+    url: https://roboshop-builds.s3.amazonaws.com/{{component}}.zip
+    dest: /tmp/{{component}}.zip
+- name: Extract /tmp/{{component}}.zip into /app
+  ansible.builtin.unarchive:
+    src:   /tmp/{{component}}.zip
+    dest:  /app
+    remote_src: yes
+- name: change dir to /app
+  ansible.builtin.shell: cd
+  args:
+    chdir: /app
 - name: install python dependencies
-  ansible.builtin.command: pip3.6 install --user -r requirements.txt
+  ansible.builtin.command: sudo pip3.6 install -r requirements.txt
   args:
    chdir: /app
-- name: systemd {{component}} daemon_reload
-  ansible.builtin.import_role:
-    name: common
-    tasks_from: systemd.yml
-
+- name: "copy {{component}} service content in /etc/systemd/system/{{component}}.service"
+  ansible.builtin.template:
+    src: roles/common/templates/{{component}}.service.j2
+    dest: /etc/systemd/system/{{component}}.service
+- name: deamon reloaded
+  ansible.builtin.systemd_service:
+    name: "{{component}}"
+    state: started
+    daemon_reload: true
+- name: Checking service module again deamon reloaded
+  ansible.builtin.service:
+    name: "{{component}}"
+    enabled: yes
+    state: restarted

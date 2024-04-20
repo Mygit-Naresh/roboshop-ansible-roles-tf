@@ -1,4 +1,4 @@
-- name: install {{item}}
+- name: install python packages
   ansible.builtin.package:
     name:  "{{item}}"
     state: present
