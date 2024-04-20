@@ -33,9 +33,9 @@
 - name: load cities data
   ansible.builtin.shell: "mysql -h {{MYSQL_HOST}} -uroot -p{{mysql_password}}  < /app/schema/shipping.sql"
   when: schema.stdout != "1"
-- name: connect to mysql and load data
-  ansible.builtin.command: mysql -h {{MYSQL_HOST}}  -uroot  {{mysql_password}}   < /app/schema/{{component}}.sql
-  when: schema.stdout != "1"   #-p{{ lookup('aws_ssm', '/roboshop/{{env}}/mysql_root_pass', region='us-east-1', decrypt=True) }}
+# - name: connect to mysql and load data
+#   ansible.builtin.command: mysql -h {{MYSQL_HOST}}  -uroot  {{mysql_password}}   < /app/schema/{{component}}.sql
+#   when: schema.stdout != "1"   #-p{{ lookup('aws_ssm', '/roboshop/{{env}}/mysql_root_pass', region='us-east-1', decrypt=True) }}
 - name: restart shipping
   ansible.builtin.import_role:
     name: common
