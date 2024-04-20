@@ -7,10 +7,10 @@
     name: common
     tasks_from: app-setup.yml
 - name: install python dependencies
-  ansible.builtin.command: pip3.6 install --user -r requirements.txt
+  ansible.builtin.command: "pip3.6 install --user -r requirements.txt"
   args:
    chdir: /app
-- name: systemd
+- name: systemd {{component}} daemon_reload
   ansible.builtin.import_role:
     name: common
     tasks_from: systemd.yml
