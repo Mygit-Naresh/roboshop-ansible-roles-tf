@@ -45,7 +45,7 @@
   args:
     chdir: /app
 - name: install python dependencies
-  ansible.builtin.command: sudo pip3.6 install -r requirements.txt
+  ansible.builtin.command: pip3.6 install -r requirements.txt
   args:
    chdir: /app
 - name: "copy {{component}} service content in /etc/systemd/system/{{component}}.service"
