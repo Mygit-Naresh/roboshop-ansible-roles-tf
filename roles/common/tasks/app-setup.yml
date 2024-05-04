@@ -11,17 +11,13 @@
 #     dest: /tmp/{{component}}.zip
 - name: Download {{component}}.zip from nexus server
   ansible.builtin.get_url:
-    url: http:172.31.16.69:8081/repository/{{component}}/com/useterraform/{{component}}/{{version}}/{{component}}-{{version}}.zip
-    dest: /tmp/{{component}}.zip
+    url: "http:172.31.16.69:8081/repository/{{component}}/com/useterraform/{{component}}/{{version}}/{{component}}-{{version}}.zip"
+    dest: /tmp/{{component}}-{{version}}.zip
 - name: Extract /tmp/{{component}}.zip into /app
   ansible.builtin.unarchive:
-    src:   /tmp/{{component}}.zip
+    src:   /tmp/{{component}}-{{version}}.zip
     dest:  /app
     remote_src: yes
-- name: change dir to /app
-  ansible.builtin.shell: cd
-  args:
-    chdir: /app
 - name: "copy {{component}} service content in /etc/systemd/system/{{component}}.service"
   ansible.builtin.template:
     src: roles/common/templates/{{component}}.service.j2
