@@ -12,7 +12,7 @@
 - name: Download {{component}}.zip from nexus server
   ansible.builtin.get_url:
     url: "http://172.31.16.69:8081/repository/{{component}}/com/useterraform/{{component}}/{{version}}/{{component}}-{{version}}.zip"
-    dest: /tmp
+    dest: /tmp/{component}}-{{version}}.zip
 - name: Extract /tmp/{{component}}.zip into /app
   ansible.builtin.unarchive:
     src:   /tmp/{{component}}-{{version}}.zip
