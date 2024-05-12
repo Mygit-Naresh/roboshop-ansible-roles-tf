@@ -7,3 +7,5 @@ MONGODB_HOST: mongodb-dev.eternaltrainings.online
 RABBITMQ_HOST: rabbitmq-dev.eternaltrainings.online
 SHIPPING_HOST: shipping.app-dev.eternaltrainings.online
 USER_HOST:  user.app-dev.eternaltrainings.online
+NEXUS_URL: http://172.31.16.69:8081/repository
+PROJECT_NAME: "eternalplace"

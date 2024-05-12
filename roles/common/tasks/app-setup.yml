@@ -11,7 +11,7 @@
 #     dest: /tmp/{{component}}.zip
 - name: Download {{component}}.zip from nexus server
   ansible.builtin.get_url:
-    url: "http://172.31.16.69:8081/repository/{{component}}/com/useterraform/{{component}}/{{version}}/{{component}}-{{version}}.zip"
+    url: "{{NEXUS_URL}}/{{component}}/com/{{PROJECT_NAME}}/{{component}}/{{version}}/{{component}}-{{version}}.zip"
     dest: /tmp/{{component}}-{{version}}.zip
     username: admin
     password: admin
